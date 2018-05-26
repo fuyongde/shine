@@ -11,9 +11,9 @@
   </appender>
 
   <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>logs/leaf-server.log</file>
+    <file>logs/user-server.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>logs/leaf-server.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <fileNamePattern>logs/user-server.%d{yyyy-MM-dd}.log</fileNamePattern>
     </rollingPolicy>
     <encoder>
       <pattern>%-20(%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]) %-5level [%X{hydraTraceId}] %logger{80}.%M:%line-%msg%n</pattern>
@@ -26,9 +26,9 @@
   </appender>
 
   <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>logs/leaf-server-error.log</file>
+    <file>logs/user-server-error.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>logs/leaf-server-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <fileNamePattern>logs/user-server-error.%d{yyyy-MM-dd}.log</fileNamePattern>
     </rollingPolicy>
     <encoder>
       <pattern>%-20(%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]) %-5level [%X{hydraTraceId}] %logger{80}.%M:%line-%msg%n</pattern>
@@ -40,12 +40,11 @@
     </filter>
   </appender>
 
-  <logger name="com.shine.leaf.server" level="ERROR">
+  <logger name="com.shine.user.server" level="ERROR">
     <appender-ref ref="ERROR_FILE"/>
   </logger>
 
-  <logger name="com.shine.leaf.server" level="INFO"/>
-  <logger name="com.alibaba.dubbo" level="INFO"/>
+  <logger name="com.shine.user.server" level="DEBUG"/>
 
   <root level="INFO">
     <appender-ref ref="INFO_FILE"/>

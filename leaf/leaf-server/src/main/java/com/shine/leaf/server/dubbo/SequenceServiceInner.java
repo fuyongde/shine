@@ -1,4 +1,4 @@
-package com.shine.leaf.server.service;
+package com.shine.leaf.server.dubbo;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.shine.leaf.api.service.SequenceService;
@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @desc 生成唯一序列
  */
 @Service
-public class SequenceServiceImpl implements SequenceService {
+public class SequenceServiceInner implements SequenceService {
 
-  private static Logger logger = LoggerFactory.getLogger(SequenceServiceImpl.class);
+  private static Logger logger = LoggerFactory.getLogger(SequenceServiceInner.class);
 
   @Autowired
   private NodeBean nodeBean;

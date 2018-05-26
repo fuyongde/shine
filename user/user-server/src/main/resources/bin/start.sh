@@ -1,5 +1,5 @@
 #!/bin/bash
-APP=leaf-server
+APP=user-server
 JAR=$APP.jar
 
 # get absolute path

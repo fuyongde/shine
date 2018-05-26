@@ -10,14 +10,14 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>leaf</artifactId>
+  <artifactId>user</artifactId>
   <packaging>pom</packaging>
-  <name>leaf-parent</name>
-  <description>全局唯一id生成器</description>
+  <name>user-parent</name>
+  <description>用户中心</description>
 
   <modules>
-    <module>leaf-api</module>
-    <module>leaf-server</module>
+    <module>user-api</module>
+    <module>user-server</module>
   </modules>
 
   <dependencyManagement>
@@ -40,6 +40,11 @@
             <groupId>org.slf4j</groupId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>com.shine</groupId>
+        <artifactId>commons</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

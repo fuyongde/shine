@@ -2,6 +2,10 @@
 *.iml
 application.pid
 
-leaf/leaf-api/target
+commons/target
 
+leaf/leaf-api/target
 leaf/leaf-server/target
+
+user/user-api/target
+user/user-server/target

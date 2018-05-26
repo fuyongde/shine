@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shine.user.server.repository.UserMapper">
+  <!--auto generated Code-->
+  <resultMap id="AllColumnMap" type="com.shine.user.server.domain.User">
+    <result column="id" property="id"/>
+    <result column="username" property="username"/>
+    <result column="nickname" property="nickname"/>
+    <result column="email" property="email"/>
+    <result column="mobile" property="mobile"/>
+    <result column="idCard" property="idCard"/>
+    <result column="type" property="type"/>
+    <result column="deleted" property="deleted"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <sql id="insert_column">
+    `id`,
+    `username`,
+    `nickname`,
+    `email`,
+    `mobile`,
+    `id_card`,
+    `type`
+  </sql>
+
+  <!--auto generated Code-->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+    INSERT INTO `t_user`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pojo.id!=null">`id`,</if>
+      <if test="pojo.username!=null">`username`,</if>
+      <if test="pojo.nickname!=null">`nickname`,</if>
+      <if test="pojo.email!=null">`email`,</if>
+      <if test="pojo.mobile!=null">`mobile`,</if>
+      <if test="pojo.idCard!=null">`id_card`,</if>
+      <if test="pojo.type!=null">`type`,</if>
+    </trim>
+    VALUES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pojo.id!=null">#{pojo.id},</if>
+      <if test="pojo.username!=null">#{pojo.username},</if>
+      <if test="pojo.nickname!=null">#{pojo.nickname},</if>
+      <if test="pojo.email!=null">#{pojo.email},</if>
+      <if test="pojo.mobile!=null">#{pojo.mobile},</if>
+      <if test="pojo.idCard!=null">#{pojo.idCard},</if>
+      <if test="pojo.type!=null">#{pojo.type},</if>
+    </trim>
+  </insert>
+
+  <!--auto generated Code-->
+  <insert id="insertList">
+    INSERT INTO `t_user` (
+      <include refid="insert_column"/>
+    ) VALUES
+    <foreach collection="pojos" item="pojo" index="index" separator=",">
+      (
+        #{pojo.id},
+        #{pojo.username},
+        #{pojo.nickname},
+        #{pojo.email},
+        #{pojo.mobile},
+        #{pojo.idCard},
+        #{pojo.type}
+      )
+    </foreach>
+  </insert>
+
+  <!--auto generated Code-->
+  <update id="update">
+    UPDATE `t_user`
+    <set>
+      <if test="pojo.username!=null">`username` = #{pojo.username},</if>
+      <if test="pojo.nickname!=null">`nickname` = #{pojo.nickname},</if>
+      <if test="pojo.email!=null">`email` = #{pojo.email},</if>
+      <if test="pojo.mobile!=null">`mobile` = #{pojo.mobile},</if>
+      <if test="pojo.idCard!=null">`id_card` = #{pojo.idCard},</if>
+      <if test="pojo.type!=null">`type` = #{pojo.type},</if>
+      <if test="pojo.deleted!=null">`deleted` = #{pojo.deleted},</if>
+    </set>
+    WHERE id = #{user.id}
+  </update>
+
+  <select id="getById" resultMap="AllColumnMap">
+    SELECT * FROM t_user WHERE t_user.id = #{id}
+  </select>
+</mapper>
+
