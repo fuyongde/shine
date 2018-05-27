@@ -2,44 +2,30 @@
 APP=user-server
 JAR=$APP.jar
 
-# get absolute path
+# 绝对路径
 ABSOLUTE_PATH=$(cd "$(dirname "$0")/../"; pwd)
 echo "The application absolute path is $ABSOLUTE_PATH"
 
-# get total memory
+# 获取服务器总内存
 let MEM_TOTAL=`cat /proc/meminfo |grep MemTotal|awk '{printf "%d", $2/1024 }'`
 echo "Total memory is $MEM_TOTAL"
 
-# remote debug config
+DEBUG_PORT=9101
+# 远程调试配置
 JAVA_DEBUG_OPTS=""
 if [ "$1" = "dev" -o "$1" = "test" ]; then
-    JAVA_DEBUG_OPTS=" -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"
-    echo "$JAVA_DEBUG_OPTS"
+    JAVA_DEBUG_OPTS=" -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n"
 fi
 
+JMX_PORT=9102
 # JMX config
 JAVA_JMX_OPTS=""
 if [ "$1" = "dev" -o "$1" = "test" ]; then
-    JAVA_JMX_OPTS=" -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9004 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
-    echo "$JAVA_JMX_OPTS"
+    JAVA_JMX_OPTS=" -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=$JMX_PORT -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
 fi
 
 # JVM memory config
-JAVA_MEM_OPTS=""
-BITS=`file $JAVA_HOME/bin/java | grep 64-bit`
-if [ -n "$BITS" ]; then
-    # get total memory
-    let MEM_TOTAL=`cat /proc/meminfo |grep MemTotal|awk '{printf "%d", $2/1024 }'`
-    echo "Total memory is $MEM_TOTAL"
-    if [ MEM_TOTAL -gt 2500 ];then
-        JAVA_MEM_OPTS=" -server -Xmx1024m -Xms1024m -Xmn256m -Xss256k -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSParallelRemarkEnabled -XX:LargePageSizeInBytes=128m -XX:+UseFastAccessorMethods -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=80"
-    else
-        JAVA_MEM_OPTS=" -server -Xmx1024m -Xms1024m -Xmn256m -Xss256k -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSParallelRemarkEnabled -XX:LargePageSizeInBytes=128m -XX:+UseFastAccessorMethods -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=80"
-    fi
-else
-    JAVA_MEM_OPTS=" -server -Xmx1024m -Xms1024m -XX:PermSize=128m -XX:SurvivorRatio=2 -XX:+UseParallelGC"
-fi
-echo "$JAVA_MEM_OPTS"
+JAVA_MEM_OPTS=" -server -Xmx64m -Xms64m -XX:+UseG1GC"
 
 # ENV配置
 ALL_ENV=("local" "dev" "test" "pre" "product")

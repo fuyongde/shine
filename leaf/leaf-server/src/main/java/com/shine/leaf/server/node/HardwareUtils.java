@@ -1,47 +1,50 @@
 package com.shine.leaf.server.node;
 
 import com.shine.commons.utils.Exceptions;
+import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.util.Enumeration;
+import java.util.List;
 
-/**
- * @author fuyongde
- * 获取硬件信息
- */
+/** @author fuyongde 获取硬件信息 */
 public class HardwareUtils {
 
-    public static String getMacAddress() {
-        //获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
-        byte[] mac = getMac();
+  private static final Logger logger = LoggerFactory.getLogger(HardwareUtils.class);
 
-        //下面代码是把mac地址拼装成String
-        StringBuilder sb = new StringBuilder();
+  public static List<String> getMacAddress() {
+    // 获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
+    List<String> macAddressList = Lists.newArrayList();
+    try {
+      Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
 
-        for (int i = 0; i < mac.length; i++) {
-            if (i != 0) {
-                sb.append("-");
-            }
-            //mac[i] & 0xFF 是为了把byte转化为正整数
-            String s = Integer.toHexString(mac[i] & 0xFF);
-            sb.append(s.length() == 1 ? 0 + s : s);
+      while (networkInterfaces.hasMoreElements()) {
+        NetworkInterface network = networkInterfaces.nextElement();
+
+        byte[] mac = network.getHardwareAddress();
+        if (mac != null) {
+          StringBuilder sb = new StringBuilder();
+          for (int i = 0; i < mac.length; i++) {
+            sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+          }
+
+          String macAddress = sb.toString();
+          if (StringUtils.isNotBlank(macAddress)) {
+            macAddressList.add(macAddress);
+            logger.info("Address = "+ sb.toString() + " @ [" + network.getName() + "] " + network.getDisplayName());
+          }
         }
-
-        //把字符串所有小写字母改为大写成为正规的mac地址并返回
-        return sb.toString().toUpperCase();
+      }
+    } catch (SocketException e) {
+      throw Exceptions.unchecked(e);
     }
 
-    private static byte[] getMac() {
-        //获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
-        byte[] mac;
-        try {
-            InetAddress ia = InetAddress.getLocalHost();
-            mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
-        } catch (UnknownHostException | SocketException e) {
-            throw Exceptions.unchecked(e);
-        }
-        return mac;
-    }
+    macAddressList.sort(String::compareTo);
+
+    return macAddressList;
+  }
 }

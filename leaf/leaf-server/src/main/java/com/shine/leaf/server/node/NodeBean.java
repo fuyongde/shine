@@ -52,7 +52,7 @@ public class NodeBean {
 
     boolean leafRootExist = zkClient.exists(LEAF_ROOT_PATH);
 
-    String macAddress = HardwareUtils.getMacAddress();
+    String macAddress = HardwareUtils.getMacAddress().get(0);
 
     logger.info("跟节点是否存在：" + leafRootExist);
 
