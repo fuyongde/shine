@@ -26,7 +26,7 @@ import javax.annotation.Resource;
 public class UserService {
 
   private final static int SALT_SIZE = 8;
-  private final static int HASH_INTERATIONS = 1024;
+  private final static int HASH_ITERATIONS = 1024;
 
   @Resource
   private UserMapper userMapper;
@@ -52,21 +52,20 @@ public class UserService {
     PasswordAuth passwordAuth = new PasswordAuth();
     passwordAuth.setId(userId);
     passwordAuth.setUserId(user.getId());
-    entryptPassword(passwordAuth, userAO.getPassword());
+    encryptPassword(passwordAuth, userAO.getPassword());
     passwordAuthMapper.insertSelective(passwordAuth);
     return userId;
   }
 
-  private void entryptPassword(PasswordAuth passwordAuth, String password) {
+  private void encryptPassword(PasswordAuth passwordAuth, String password) {
     byte[] salt = Digests.generateSalt(SALT_SIZE);
     passwordAuth.setSalt(Encodes.encodeHex(salt));
-    byte[] hashPassword = Digests.sha1(password.getBytes(), salt, HASH_INTERATIONS);
+    byte[] hashPassword = Digests.sha1(password.getBytes(), salt, HASH_ITERATIONS);
     passwordAuth.setPassword(Encodes.encodeHex(hashPassword));
   }
 
   public UserVO getById(Long id) {
     User user = userMapper.getById(id);
-    UserVO userVO = BeanMapper.map(user, UserVO.class);
-    return userVO;
+    return BeanMapper.map(user, UserVO.class);
   }
 }

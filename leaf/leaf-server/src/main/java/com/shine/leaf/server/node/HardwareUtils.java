@@ -1,5 +1,7 @@
 package com.shine.leaf.server.node;
 
+import com.shine.commons.utils.Exceptions;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -11,12 +13,12 @@ import java.net.UnknownHostException;
  */
 public class HardwareUtils {
 
-    public static String getMacaddress() throws SocketException, UnknownHostException {
+    public static String getMacAddress() {
         //获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
         byte[] mac = getMac();
 
         //下面代码是把mac地址拼装成String
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < mac.length; i++) {
             if (i != 0) {
@@ -31,10 +33,15 @@ public class HardwareUtils {
         return sb.toString().toUpperCase();
     }
 
-    public static byte[] getMac() throws UnknownHostException, SocketException {
+    private static byte[] getMac() {
         //获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
-        InetAddress ia = InetAddress.getLocalHost();
-        byte[] mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
+        byte[] mac;
+        try {
+            InetAddress ia = InetAddress.getLocalHost();
+            mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
+        } catch (UnknownHostException | SocketException e) {
+            throw Exceptions.unchecked(e);
+        }
         return mac;
     }
 }

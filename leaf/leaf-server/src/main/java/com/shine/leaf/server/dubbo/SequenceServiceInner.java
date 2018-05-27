@@ -5,7 +5,7 @@ import com.shine.leaf.api.service.SequenceService;
 import com.shine.leaf.server.gererator.SnowFlake;
 import com.shine.leaf.server.node.NodeBean;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class SequenceServiceInner implements SequenceService {
 
-  private static Logger logger = LoggerFactory.getLogger(SequenceServiceInner.class);
+  private static final Logger logger = LoggerFactory.getLogger(SequenceServiceInner.class);
 
-  @Autowired
-  private NodeBean nodeBean;
+  @Autowired private NodeBean nodeBean;
 
   private static int NODE_DEFAULT = 1;
 
   @Override
   public long nextLong() {
-    int node = NODE_DEFAULT;
-    try {
-      node = nodeBean.getNode();
-    } catch (ExecutionException e) {
-      e.printStackTrace();
-    }
+    int node = nodeBean.getNode();
     logger.info("node is : {}", node);
     SnowFlake snowFlake = new SnowFlake(node);
     return snowFlake.next();
@@ -48,5 +42,4 @@ public class SequenceServiceInner implements SequenceService {
   public String nextUUID() {
     return UUID.randomUUID().toString();
   }
-
 }

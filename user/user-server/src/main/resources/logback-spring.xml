@@ -19,8 +19,8 @@
       <pattern>%-20(%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]) %-5level [%X{hydraTraceId}] %logger{80}.%M:%line-%msg%n</pattern>
     </encoder>
     <filter class="ch.qos.logback.classic.filter.LevelFilter">
-      <level>INFO</level>
-      <onMatch>ACCEPT</onMatch>
+      <level>ERROR</level>
+      <onMatch>DENY</onMatch>
       <onMismatch>ACCEPT</onMismatch>
     </filter>
   </appender>
@@ -40,14 +40,12 @@
     </filter>
   </appender>
 
-  <logger name="com.shine.user.server" level="ERROR">
-    <appender-ref ref="ERROR_FILE"/>
-  </logger>
-
   <logger name="com.shine.user.server" level="DEBUG"/>
+  <logger name="com.alibaba.dubbo" level="INFO"/>
 
   <root level="INFO">
     <appender-ref ref="INFO_FILE"/>
+    <appender-ref ref="ERROR_FILE"/>
   </root>
 
 </configuration>

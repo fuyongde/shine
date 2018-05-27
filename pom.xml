@@ -19,7 +19,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <spring-boot.version>1.5.12.RELEASE</spring-boot.version>
+    <spring-boot.version>1.5.13.RELEASE</spring-boot.version>
 
     <druid-spring-boot-starter.version>1.1.9</druid-spring-boot-starter.version>
     <dubbo-spring-boot-starter.version>0.1.0</dubbo-spring-boot-starter.version>
@@ -143,13 +143,11 @@
         <artifactId>retrofit</artifactId>
         <version>${retrofit.version}</version>
       </dependency>
-
       <dependency>
         <groupId>com.squareup.retrofit2</groupId>
         <artifactId>converter-gson</artifactId>
         <version>${retrofit.version}</version>
       </dependency>
-
       <dependency>
         <groupId>com.squareup.retrofit2</groupId>
         <artifactId>converter-scalars</artifactId>
@@ -178,15 +176,30 @@
         <version>${poi-ooxml.version}</version>
       </dependency>
 
+      <!--内部依赖-->
+      <dependency>
+        <groupId>com.shine</groupId>
+        <artifactId>commons</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </dependency>
       <dependency>
         <groupId>com.shine</groupId>
         <artifactId>leaf-api</artifactId>
         <version>1.0.0-SNAPSHOT</version>
       </dependency>
-
+      <dependency>
+        <groupId>com.shine</groupId>
+        <artifactId>leaf-server</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </dependency>
       <dependency>
         <groupId>com.shine</groupId>
         <artifactId>user-api</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.shine</groupId>
+        <artifactId>user-server</artifactId>
         <version>1.0.0-SNAPSHOT</version>
       </dependency>
 

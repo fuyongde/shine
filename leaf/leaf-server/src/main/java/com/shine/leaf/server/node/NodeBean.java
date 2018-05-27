@@ -2,9 +2,9 @@ package com.shine.leaf.server.node;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.shine.commons.utils.Exceptions;
 import com.shine.leaf.server.config.ZookeeperConfig;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -25,26 +25,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class NodeBean {
 
-  private static Logger logger = LoggerFactory.getLogger(NodeBean.class);
+  private static final Logger logger = LoggerFactory.getLogger(NodeBean.class);
 
-  @Autowired
-  private ZookeeperConfig zookeeperConfig;
+  private final ZookeeperConfig zookeeperConfig;
 
   private static final String LEAF_ROOT_PATH = "/leaf";
   private static final String LEAF_NODE_PATH = "/node_";
 
   private static Cache<Integer, Integer> nodeCache = CacheBuilder.newBuilder().maximumSize(1).build();
 
-  public int getNode() throws ExecutionException {
-    return nodeCache.get(1, ()->Integer.valueOf(getZkNode().split("_")[1]));
+  @Autowired
+  public NodeBean(ZookeeperConfig zookeeperConfig) {
+    this.zookeeperConfig = zookeeperConfig;
   }
 
-  private String getZkNode() throws SocketException, UnknownHostException {
+  public int getNode() {
+    try {
+      return nodeCache.get(1, ()->Integer.valueOf(getZkNode().split("_")[1]));
+    } catch (ExecutionException e) {
+      throw Exceptions.unchecked(e);
+    }
+  }
+
+  private String getZkNode() {
     ZkClient zkClient = new ZkClient(zookeeperConfig.getAddress());
 
     boolean leafRootExist = zkClient.exists(LEAF_ROOT_PATH);
 
-    String macAddress = HardwareUtils.getMacaddress();
+    String macAddress = HardwareUtils.getMacAddress();
 
     logger.info("跟节点是否存在：" + leafRootExist);
 
@@ -72,7 +80,7 @@ public class NodeBean {
       if (count > 1) {
         // 删除所有符合条件的节点
         logger.info("删除多余的节点");
-        matchNodeList.stream()
+        matchNodeList
             .forEach(node->{
               if (StringUtils.equals(zkClient.readData(LEAF_ROOT_PATH + "/" + node), macAddress)) {
                 zkClient.delete(LEAF_ROOT_PATH + "/" + node);
