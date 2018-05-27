@@ -28,7 +28,7 @@ public class UserController {
   @PostMapping
   public ResponseEntity<?> register(@RequestBody UserAO userAO, UriComponentsBuilder uriBuilder) {
     long id = userService.registerByPassword(userAO);
-    URI uri = uriBuilder.path("/api/v1/task/" + id).build().toUri();
+    URI uri = uriBuilder.path("/api/users/" + id).build().toUri();
     HttpHeaders headers = new HttpHeaders();
     headers.setLocation(uri);
     return new ResponseEntity(headers, HttpStatus.CREATED);

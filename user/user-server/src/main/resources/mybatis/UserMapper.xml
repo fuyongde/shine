@@ -8,7 +8,7 @@
     <result column="nickname" property="nickname"/>
     <result column="email" property="email"/>
     <result column="mobile" property="mobile"/>
-    <result column="idCard" property="idCard"/>
+    <result column="id_card" property="idCard"/>
     <result column="type" property="type"/>
     <result column="deleted" property="deleted"/>
     <result column="create_time" property="createTime"/>
