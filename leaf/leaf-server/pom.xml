@@ -60,7 +60,7 @@
 
     <dependency>
       <groupId>com.shine</groupId>
-      <artifactId>commons</artifactId>
+      <artifactId>commons-utils</artifactId>
     </dependency>
 
     <dependency>

@@ -1,7 +1,7 @@
 package com.shine.user.server.rest;
 
+import com.shine.commons.api.SingleResponse;
 import com.shine.user.api.service.ao.UserAO;
-import com.shine.user.api.service.vo.UserVO;
 import com.shine.user.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -35,7 +35,7 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public UserVO getById(@PathVariable Long id) {
-    return userService.getById(id);
+  public SingleResponse getById(@PathVariable Long id) {
+    return new SingleResponse( userService.getById(id));
   }
 }

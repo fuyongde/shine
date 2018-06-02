@@ -4,6 +4,9 @@ application.pid
 
 commons/target
 
+commons/commons-api/target
+commons/commons-utils/target
+
 leaf/leaf-api/target
 leaf/leaf-server/target
 
