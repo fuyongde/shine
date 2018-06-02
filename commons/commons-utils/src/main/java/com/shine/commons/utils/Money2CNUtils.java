@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  *
  * @author fuyongde
  */
-public class Money2CNUtils {
+public final class Money2CNUtils {
   /** 汉语中数字大写 */
   private static final String[] CN_UPPER_NUMBER = {
     "零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"
@@ -27,6 +27,9 @@ public class Money2CNUtils {
 
   /** 十进制 */
   private static final int INTO = 10;
+
+  private Money2CNUtils() {
+  }
 
   /**
    * 把输入的金额转换为汉语中人民币的大写

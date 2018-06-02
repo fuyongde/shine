@@ -18,7 +18,7 @@ import javax.crypto.spec.SecretKeySpec;
  * 
  * @author calvin
  */
-public class Cryptos {
+public final class Cryptos {
 
 	private static final String AES = "AES";
 	private static final String AES_CBC = "AES/CBC/PKCS5Padding";
@@ -29,6 +29,9 @@ public class Cryptos {
 	private static final int DEFAULT_IVSIZE = 16;
 
 	private static SecureRandom random = new SecureRandom();
+
+	private Cryptos() {
+	}
 
 	// -- HMAC-SHA1 funciton --//
 	/**

@@ -21,7 +21,10 @@ import java.util.Map;
  * @desc 操作Excel
  * @date 2017/11/29 16:38
  */
-public class ExcelUtils {
+public final class ExcelUtils {
+
+  private ExcelUtils() {
+  }
 
   /**
    * 创建excel文件

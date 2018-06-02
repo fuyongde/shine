@@ -19,10 +19,13 @@ import org.apache.commons.text.StringEscapeUtils;
  * 
  * @author calvin
  */
-public class Encodes {
+public final class Encodes {
 
 	private static final String DEFAULT_URL_ENCODING = "UTF-8";
 	private static final char[] BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
+
+	private Encodes() {
+	}
 
 	/**
 	 * Hex编码.

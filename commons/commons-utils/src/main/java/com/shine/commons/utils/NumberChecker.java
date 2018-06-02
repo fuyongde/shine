@@ -9,7 +9,10 @@ import static com.shine.commons.utils.consts.NumberPattern.ALL_DIGITAL_PATTERN;
  * @desc 数字校验
  * @date 2017/11/10 15:38
  */
-public class NumberChecker {
+public final class NumberChecker {
+
+  private NumberChecker() {
+  }
 
   /**
    * 数字验证

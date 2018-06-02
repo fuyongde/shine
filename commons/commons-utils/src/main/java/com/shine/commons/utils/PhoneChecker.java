@@ -10,7 +10,10 @@ import static com.shine.commons.utils.consts.PhonePattern.TELEPHONE_PATTERN;
  * @desc 电话号码检测
  * @date 2017/11/10 17:47
  */
-public class PhoneChecker {
+public final class PhoneChecker {
+
+  private PhoneChecker() {
+  }
 
   /**
    * 验证手机号码

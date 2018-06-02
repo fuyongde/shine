@@ -13,7 +13,10 @@ import static com.shine.commons.utils.consts.PageConsts.*;
  * @desc 内存分页的工具类
  * @date 2017/11/15 13:52
  */
-public class PageUtils {
+public final class PageUtils {
+
+  private PageUtils() {
+  }
 
   /**
    * 对原始数据进行拆分

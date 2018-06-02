@@ -18,7 +18,10 @@ import static com.shine.commons.utils.consts.IdcardPattern.FIRST_IDCARD_LENGTH;
  * @desc 身份证的校验工具类
  * @date 2017/11/10 14:13
  */
-public class IdcardChecker {
+public final class IdcardChecker {
+
+  private IdcardChecker() {
+  }
 
   /**
    * 验证所有的身份证的合法性

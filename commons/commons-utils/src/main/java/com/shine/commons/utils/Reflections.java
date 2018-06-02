@@ -14,7 +14,7 @@ import java.lang.reflect.*;
  *
  * @author fuyongde on 2017/6/10.
  */
-public class Reflections {
+public final class Reflections {
 
   private static final String SETTER_PREFIX = "set";
 
@@ -23,6 +23,9 @@ public class Reflections {
   private static final String CGLIB_CLASS_SEPARATOR = "$$";
 
   private static final Logger logger = LoggerFactory.getLogger(Reflections.class);
+
+  private Reflections() {
+  }
 
   /**
    * 调用Getter方法.

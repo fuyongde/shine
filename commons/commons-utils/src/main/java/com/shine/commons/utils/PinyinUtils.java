@@ -21,9 +21,12 @@ import static com.shine.commons.utils.consts.PinyinPattern.*;
  * @desc 汉字转拼音的工具类
  * @date 2017/11/1 17:30
  */
-public class PinyinUtils {
+public final class PinyinUtils {
 
   private static final Logger logger = LoggerFactory.getLogger(PinyinUtils.class);
+
+  private PinyinUtils() {
+  }
 
   /**
    * 获取汉字的首字母

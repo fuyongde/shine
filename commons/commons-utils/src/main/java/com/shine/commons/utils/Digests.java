@@ -15,7 +15,7 @@ import org.apache.commons.lang3.Validate;
  * 
  * @author calvin
  */
-public class Digests {
+public final class Digests {
 
 	private static final String SHA1 = "SHA-1";
 	private static final String MD5 = "MD5";
@@ -35,6 +35,9 @@ public class Digests {
 
 	public static byte[] sha1(byte[] input, byte[] salt, int iterations) {
 		return digest(input, SHA1, salt, iterations);
+	}
+
+	private Digests() {
 	}
 
 	/**

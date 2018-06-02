@@ -9,7 +9,10 @@ import static com.shine.commons.utils.consts.EmailPattern.EMAIL_PATTERN;
  * @desc 邮箱验证的工具类
  * @date 2017/11/9 19:32
  */
-public class EmailChecker {
+public final class EmailChecker {
+
+  private EmailChecker() {
+  }
 
   /**
    * 是否为邮箱

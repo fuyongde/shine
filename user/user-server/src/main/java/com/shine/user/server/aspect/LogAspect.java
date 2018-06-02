@@ -34,8 +34,8 @@ public class LogAspect {
     Object[] params = joinPoint.getArgs();
 
     // 记录下请求内容
-    logger.info("=============================start====================================");
-    logger.info("METHOD: {}", joinPoint.getSignature());
+    logger.info("******************service start******************");
+    logger.info("method : {}", joinPoint.getSignature());
     if (params!=null && params.length > 0) {
       logger.info("params : {}", params);
     }
@@ -45,9 +45,9 @@ public class LogAspect {
   @AfterReturning(returning = "result", pointcut = "serviceLog()")
   public void doAfterReturning(Object result) throws Throwable {
     // 处理完请求，返回内容
-    logger.info("RESPONSE : {}", result);
-    logger.info("SPEND TIME : {}ms", (System.currentTimeMillis() - serviceStartTime.get()));
-    logger.info("=============================end======================================");
+    logger.info("service result : {}", result);
+    logger.info("service use : {}ms", (System.currentTimeMillis() - serviceStartTime.get()));
+    logger.info("******************service end******************");
     serviceStartTime.remove();
   }
 

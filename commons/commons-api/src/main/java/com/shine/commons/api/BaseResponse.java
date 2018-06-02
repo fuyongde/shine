@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @date 2018/6/2 16:06
  * @desc 基础响应
  */
-public abstract class BaseResponse<T> implements Serializable {
+public abstract class BaseResponse implements Serializable {
 
   public static final int NO_LOGIN = -1;
 

@@ -28,6 +28,7 @@ public class ControllerAspect {
 
   @Around("controller()")
   public Object handlerControllerMethod(ProceedingJoinPoint joinPoint) {
+    logger.info("=============================Controller Start====================================");
     startTime.set(System.currentTimeMillis());
     Object result;
     try {
@@ -35,8 +36,10 @@ public class ControllerAspect {
     } catch (Throwable throwable) {
       result = handlerException(joinPoint, throwable);
     }
-    logger.info(joinPoint.getSignature() + "use time:" + (System.currentTimeMillis() - startTime.get()));
+    logger.info("CONTROLLER RESPONSE : {}", result);
+    logger.info("CONTROLLER SPEND TIME : {}ms", (System.currentTimeMillis() - startTime.get()));
     startTime.remove();
+    logger.info("=============================Controller End====================================");
     return result;
   }
 
