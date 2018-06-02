@@ -53,8 +53,10 @@ public class PaginationUtils {
    * @param <T>       任何类型
    * @return 当页的数据
    */
-  public static <T> List<T> getByPage(List<T> list, int pageIndex, int pageSize) {
+  public static <T> List<T> getByPage(@NonNull List<T> list, int pageIndex, int pageSize) {
     pageIndex = pageIndex < PAGE_INDEX_MIN ? PAGE_INDEX_DEFAULT : pageIndex;
+    int totalPage = totalPage(list.size(), pageSize);
+    pageIndex = pageIndex >= totalPage ? (totalPage - 1) : pageIndex;
     return split(list, pageSize).get(pageIndex);
   }
 

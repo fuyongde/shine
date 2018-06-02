@@ -10,8 +10,8 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
  */
 public class Style {
 
-  public static final short defaultTitleRowHeight = 20;
-  public static final short defaultCellWidth = 16 * 256;
+  public static final short DEFAULT_TITLE_ROW_HEIGHT = 20;
+  public static final short DEFAULT_CELL_WIDTH = 16 * 256;
 
   public static CellStyle defaultTitleCellStyle(SXSSFWorkbook workbook) {
     // 创建单元格样式对象

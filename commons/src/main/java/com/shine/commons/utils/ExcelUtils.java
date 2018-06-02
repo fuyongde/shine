@@ -49,13 +49,13 @@ public class ExcelUtils {
 
         // 第0行，创建标题
         SXSSFRow titleRow = sheet.createRow(0);
-        titleRow.setHeightInPoints(Style.defaultTitleRowHeight);
+        titleRow.setHeightInPoints(Style.DEFAULT_TITLE_ROW_HEIGHT);
         for (int j = 0; j < title.length; j++) {
           SXSSFCell titleCell = titleRow.createCell(j);
           titleCell.setCellValue(title[j].getTitleName());
           titleCell.setCellStyle(Style.defaultTitleCellStyle(workbook));
 
-          sheet.setColumnWidth(j, Style.defaultCellWidth);
+          sheet.setColumnWidth(j, Style.DEFAULT_CELL_WIDTH);
         }
 
         // 第1行开始，写入数据
@@ -71,7 +71,7 @@ public class ExcelUtils {
             dataCell.setCellValue(currentRowData.get(key));
           }
 
-          sheet.setColumnWidth(j, Style.defaultCellWidth);
+          sheet.setColumnWidth(j, Style.DEFAULT_CELL_WIDTH);
         }
       }
     }
