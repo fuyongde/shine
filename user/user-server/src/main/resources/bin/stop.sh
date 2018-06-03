@@ -6,7 +6,7 @@ JAR=$APP.jar
 ABSOLUTE_PATH=$(cd "$(dirname "$0")/../"; pwd)
 echo "The application absolute path is $ABSOLUTE_PATH"
 
-PID=`ps -ef | grep user-server.jar | grep -v grep | awk '{print $2}'`
+PID=`ps -ef | grep $JAR | grep -v grep | awk '{print $2}'`
 
 function banner(){
     echo ""
