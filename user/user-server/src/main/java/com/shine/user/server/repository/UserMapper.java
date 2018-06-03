@@ -20,4 +20,6 @@ public interface UserMapper {
   int update(@Param("pojo") User user);
 
   User getById(@Param("id") Long id);
+
+  User getByUsername(@Param("username") String username);
 }

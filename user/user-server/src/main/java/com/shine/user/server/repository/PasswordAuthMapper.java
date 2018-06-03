@@ -12,4 +12,6 @@ import org.apache.ibatis.annotations.Param;
 public interface PasswordAuthMapper {
 
   int insertSelective(@Param("pojo") PasswordAuth passwordAuth);
+
+  PasswordAuth getByUserId(@Param("userId") Long userId);
 }

@@ -2,6 +2,7 @@ package com.shine.user.server.rest;
 
 import com.shine.commons.api.SingleResponse;
 import com.shine.user.api.service.ao.UserAO;
+import com.shine.user.api.service.vo.UserVO;
 import com.shine.user.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -35,7 +36,12 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public SingleResponse getById(@PathVariable Long id) {
-    return new SingleResponse( userService.getById(id));
+  public SingleResponse<UserVO> getById(@PathVariable Long id) {
+    return new SingleResponse<>(userService.getById(id));
+  }
+
+  @PostMapping("/login")
+  public SingleResponse<String> login(@RequestBody UserAO userAO) {
+    return new SingleResponse(userService.login(userAO.getUsername(), userAO.getPassword()));
   }
 }

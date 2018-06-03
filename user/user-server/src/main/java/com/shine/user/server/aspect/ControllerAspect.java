@@ -2,6 +2,7 @@ package com.shine.user.server.aspect;
 
 import com.shine.commons.api.BaseResponse;
 import com.shine.commons.api.SingleResponse;
+import com.shine.commons.api.exception.ServiceException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -56,6 +57,9 @@ public class ControllerAspect {
     SingleResponse<?> result = new SingleResponse(throwable);
 
     // 已知异常
+    if (throwable instanceof ServiceException) {
+      result.setMsg(throwable.getMessage());
+    }
 
     return result;
   }

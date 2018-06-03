@@ -85,5 +85,10 @@
   <select id="getById" resultMap="AllColumnMap">
     SELECT * FROM t_user WHERE t_user.id = #{id}
   </select>
+
+  <select id="getByUsername" resultMap="AllColumnMap">
+    SELECT * FROM t_user WHERE t_user.username = #{username}
+  </select>
+
 </mapper>
 
