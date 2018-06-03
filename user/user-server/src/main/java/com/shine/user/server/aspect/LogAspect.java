@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * @author fuyongde
  * @version V1.0
@@ -36,7 +38,7 @@ public class LogAspect {
     // 记录下请求内容
     logger.info("******************service start******************");
     logger.info("method : {}", joinPoint.getSignature());
-    if (params!=null && params.length > 0) {
+    if (Objects.nonNull(params) && params.length > 0) {
       logger.info("params : {}", params);
     }
 

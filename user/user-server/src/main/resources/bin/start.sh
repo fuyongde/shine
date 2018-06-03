@@ -7,7 +7,7 @@ ABSOLUTE_PATH=$(cd "$(dirname "$0")/../"; pwd)
 echo "The application absolute path is $ABSOLUTE_PATH"
 
 # 获取服务器总内存
-let MEM_TOTAL=`cat /proc/meminfo |grep MemTotal|awk '{printf "%d", $2/1024 }'`
+MEM_TOTAL=`cat /proc/meminfo |grep MemTotal|awk '{printf "%d", $2/1024 }'`
 echo "Total memory is $MEM_TOTAL"
 
 DEBUG_PORT=9101
@@ -17,11 +17,12 @@ if [ "$1" = "dev" -o "$1" = "test" ]; then
     JAVA_DEBUG_OPTS=" -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n"
 fi
 
+IP=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6 | awk '{print $2}' | tr -d "addr:"`
 JMX_PORT=9102
 # JMX config
 JAVA_JMX_OPTS=""
 if [ "$1" = "dev" -o "$1" = "test" ]; then
-    JAVA_JMX_OPTS=" -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=$JMX_PORT -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
+    JAVA_JMX_OPTS=" -Djava.rmi.server.hostname=$IP -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=$JMX_PORT -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
 fi
 
 # JVM memory config

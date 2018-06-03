@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * @author fuyongde
  * @version V1.0
@@ -29,12 +31,16 @@ public class ControllerAspect {
   @Around("controller()")
   public Object handlerControllerMethod(ProceedingJoinPoint joinPoint) {
     logger.info("=============================Controller Start====================================");
+    Object[] params = joinPoint.getArgs();
+    if (Objects.nonNull(params) && params.length > 0) {
+      logger.info("CONTROLLER REQUEST : {}", params);
+    }
     startTime.set(System.currentTimeMillis());
     Object result;
     try {
       result = joinPoint.proceed();
     } catch (Throwable throwable) {
-      result = handlerException(joinPoint, throwable);
+      result = handlerException(throwable);
     }
     logger.info("CONTROLLER RESPONSE : {}", result);
     logger.info("CONTROLLER SPEND TIME : {}ms", (System.currentTimeMillis() - startTime.get()));
@@ -46,8 +52,8 @@ public class ControllerAspect {
   /**
    * 封装异常信息，注意区分已知异常（自己抛出的）和未知异常
    */
-  private SingleResponse<?> handlerException(ProceedingJoinPoint joinPoint, Throwable throwable) {
-    SingleResponse<?> result = new SingleResponse();
+  private SingleResponse<?> handlerException(Throwable throwable) {
+    SingleResponse<?> result = new SingleResponse(throwable);
 
     // 已知异常
 

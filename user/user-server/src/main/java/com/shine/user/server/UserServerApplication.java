@@ -8,6 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.system.ApplicationPidFileWriter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.core.env.AbstractEnvironment;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.core.env.AbstractEnvironment;
  * @desc 全局唯一id生成服务
  */
 @SpringBootApplication
+@EnableMBeanExport
 @MapperScan("com.shine.user.server.repository")
 public class UserServerApplication {
 
